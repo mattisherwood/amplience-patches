@@ -115,6 +115,13 @@ To contribute improvements:
 3. Test thoroughly on https://app.amplience.net/content
 4. Submit a pull request with a clear description
 
+## Support
+
+For issues or questions:
+
+1. Review this README
+2. Open an issue on GitHub
+
 ## Changelog
 
 ### v1.0
@@ -123,3 +130,7 @@ To contribute improvements:
 - Responsive header improvements
 - Table column width patches
 - Flexible layout system
+
+---
+
+**Made with ❤️ for Amplience users**
