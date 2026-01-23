@@ -124,6 +124,10 @@ For issues or questions:
 
 ## Changelog
 
+### v1.1
+
+- Clean top-nav item interactions
+
 ### v1.0
 
 - Initial release

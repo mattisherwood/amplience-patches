@@ -6,7 +6,7 @@
     min-width: 0 !important;
   }
 
-  /* HEADER */
+  /* HEADER STRUCTURE */
 
   am-masthead .am-masthead-menu__menu-bar {
     flex-wrap: wrap;
@@ -58,6 +58,59 @@
       order: 1;
       margin-inline: auto;
     }
+  }
+
+  /* HEADER BUTTONS */
+
+  .am-masthead-menu__btn,
+  .am-masthead-menu__top-level {
+    position: relative;
+    border: 0;
+  }
+
+  .am-masthead-menu__btn,
+  .am-masthead-menu__top-level-link {
+    padding-block: 4px;
+  }
+
+  .am-masthead-menu__btn::before,
+  .am-masthead-menu__top-level::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    background: #00e4b3;
+    height: 0;
+    transition: height 0.15s ease-in;
+    z-index: 9999999999;
+  }
+
+  .am-masthead-menu__btn.is-active::before,
+  .am-masthead-menu__top-level.is-active::before {
+    height: 4px;
+  }
+
+  .am-masthead-menu__top-level-link,
+  .am-masthead-menu__top-level-caret {
+    margin-top: 0;
+  }
+
+  .am-masthead-menu__top-level-link {
+    height: auto;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+  }
+  .am-masthead-menu__btn:after,
+  .am-masthead-menu__top-level:after {
+    top: 0;
+    height: 100%;
+  }
+
+  .am-masthead-menu__top-level-caret {
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   /* TABLE */
