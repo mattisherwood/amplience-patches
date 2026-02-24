@@ -10,6 +10,7 @@
             color-scheme: light dark;
             --bg: #ffffff;
             --text: #1f2937;
+            --hover: #2563eb;
             --muted: #4b5563;
             --success: #047857;
         }
@@ -18,6 +19,7 @@
             :root {
                 --bg: #111827;
                 --text: #e5e7eb;
+                --hover: #a7c9ff;
                 --muted: #9ca3af;
                 --success: #34d399;
             }
@@ -34,6 +36,10 @@
         h1 {
             margin: 0 0 16px;
             font-size: 20px;
+        }
+
+        .fieldset {
+            margin-bottom: 24px;
         }
 
         .option {
@@ -60,14 +66,27 @@
 <body>
     <h1>Amplience Patches</h1>
 
-    <label class="option" for="stylesEnabled">
-        <input type="checkbox" id="stylesEnabled" />
-        Enable style patches
-    </label>
+    <div class="fieldset">
+        <label class="option" for="stylesEnabled">
+            <input type="checkbox" id="stylesEnabled" />
+            Enable Styles Patch
+        </label>
 
-    <p class="description">
-        Turns all CSS patches on or off for Amplience pages.
-    </p>
+        <p class="description">
+            Turns all CSS patches on or off for Amplience pages.
+        </p>
+    </div>
+
+    <div class="fieldset">
+        <label class="option" for="flowFilter">
+            <input type="checkbox" id="flowFilter" />
+            Enable Flows Filter
+        </label>
+
+        <p class="description">
+            Adds a text input to filter workflows with.
+        </p>
+    </div>
 
     <p id="status" class="status" aria-live="polite"></p>
 

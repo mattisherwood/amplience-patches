@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Amplience Patches",
-  "version": "1.3",
+  "version": "1.4",
   "description": "Patches for Amplience Dynamic Content",
   "permissions": ["storage", "contextMenus"],
   "options_page": "options.html",
@@ -12,10 +12,16 @@
   "background": {
     "service_worker": "background.js"
   },
-  "host_permissions": ["https://app.amplience.net/content*"],
+  "host_permissions": [
+    "https://app.amplience.net/content*",
+    "https://app.amplience.net/content-studio/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://app.amplience.net/content*"],
+      "matches": [
+        "https://app.amplience.net/content*",
+        "https://app.amplience.net/content-studio/*"
+      ],
       "css": ["styles.css"],
       "js": ["content.js"],
       "run_at": "document_idle"

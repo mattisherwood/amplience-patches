@@ -12,6 +12,8 @@ A Chrome extension that applies custom CSS patches to improve the layout and res
 
 - **Mobile-friendly**: Responsive design improvements for smaller screens
 
+- **Workflow Filter**: Adds a text input to filter workflows with
+
 ## Installation
 
 1. Download or clone this repository
@@ -24,7 +26,7 @@ A Chrome extension that applies custom CSS patches to improve the layout and res
 
 5. Select the `amplience-hotkeys` folder you downloaded in step 1
 
-The extension will now be active on `https://app.amplience.net/content/*`
+The extension will now be active on `https://app.amplience.net/content/*` and `https://app.amplience.net/content-studio/*`
 
 ![Installing Custom Browser Extensions](screenshots/installing-custom-browser-extensions.gif)\
 _Here are steps 2-5 in action. (Also installing our two other browser extensions - [Amplience Hotkeys](https://github.com/mattisherwood/amplience-hotkeys) and [Favicon Swapper](https://github.com/mattisherwood/favicon-swapper))_
@@ -45,11 +47,11 @@ If you wish to update the extension, merely re-run the above steps but upload th
    - Left-click the extension icon to open the popup checkbox
    - Right-click the extension icon and use the context-menu checkbox
 
-4. You can also enable/disable style patches from extension options:
+4. You can also enable/disable patches from extension options:
    - Go to `chrome://extensions/`
    - Find **Amplience Patches** and click **Details**
    - Click **Extension options**
-   - Toggle **Enable style patches**
+   - Toggle **Enable style patches** and other patch toggles
 
 ## How It Works
 
@@ -61,7 +63,7 @@ The extension uses Chrome's Manifest V3 content scripts to:
 4. **Provide a right-click action context menu** (`background.js`) - Adds a checkbox toggle on the extension action
 5. **Provide an options page** (`options.html` + `options.js`) - Allows toggling style patches on/off and stores preferences
 
-All patches only apply to pages matching `https://app.amplience.net/content*`.
+All patches only apply to pages matching `https://app.amplience.net/content*` and `https://app.amplience.net/content-studio/*`.
 
 ## File Structure
 
@@ -147,11 +149,27 @@ For issues or questions:
 
 ## Changelog
 
+### v1.4
+
+- Added content flows filter input field to search/filter workflow items in real-time
+- Filter includes clear button and 100ms debouncing for performance
+- Uses data-visibility attributes with CSS to hide/show filtered items
+- Added toggle to enable/disable content flows filter from popup, options, and context menu
+- Extended content script to support `content-studio/content-flows` URLs
+- Added mutation observer to inject filter when panels load dynamically
+- Updated settings structure with `flowFilter` flag
+
+### v1.3
+
+- Added popup checkbox when clicking the extension icon
+- Added right-click action context-menu checkbox on the extension icon
+- Synced popup/context menu/options page toggles via `chrome.storage.sync`
+
 ### v1.2
 
+- Added extension options page
 - Added `stylesEnabled` setting in `chrome.storage.sync`
-- Added extension options page and popup menu with UI toggle to enable/disable style patches
-- Extension Context-menu is now on right-click of the extension-icon, as left-click triggers the popup
+- Added UI toggle to enable/disable style patches
 
 ### v1.1
 

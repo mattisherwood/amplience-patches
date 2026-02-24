@@ -2,6 +2,7 @@
 
 const DEFAULT_SETTINGS = {
   stylesEnabled: true,
+  flowFilter: true,
 }
 
 const TOGGLE_STYLES_MENU_ID = "toggle-styles-enabled"
