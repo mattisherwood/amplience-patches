@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amplience Patches</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+            --bg: #ffffff;
+            --text: #1f2937;
+            --hover: #2d6fff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111827;
+                --text: #e5e7eb;
+                --hover: #a7c9ff;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 12px;
+            width: 220px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .option {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        a {
+            display: block;
+            padding-block: 12px;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:hover,
+        .option:hover {
+            color: var(--hover);
+        }
+    </style>
+</head>
+
+<body>
+    <label class="option" for="stylesEnabled">
+        <input type="checkbox" id="stylesEnabled" />
+        Enable style patches
+    </label>
+
+    <a href="options.html" target="_blank" rel="noopener">View all options...</a>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

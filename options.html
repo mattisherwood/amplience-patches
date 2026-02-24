@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amplience Patches Options</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+            --bg: #ffffff;
+            --text: #1f2937;
+            --muted: #4b5563;
+            --success: #047857;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111827;
+                --text: #e5e7eb;
+                --muted: #9ca3af;
+                --success: #34d399;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .description {
+            margin: 8px 0 0 28px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .status {
+            margin-top: 16px;
+            min-height: 20px;
+            font-size: 14px;
+            color: var(--success);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Amplience Patches</h1>
+
+    <label class="option" for="stylesEnabled">
+        <input type="checkbox" id="stylesEnabled" />
+        Enable style patches
+    </label>
+
+    <p class="description">
+        Turns all CSS patches on or off for Amplience pages.
+    </p>
+
+    <p id="status" class="status" aria-live="polite"></p>
+
+    <script src="options.js"></script>
+</body>
+
+</html>

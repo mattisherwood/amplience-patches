@@ -43,7 +43,7 @@
     height: 100%;
   }
 
-  @media (max-width: 1120px) {
+  @media (max-width: 1147px) {
     .am-masthead-menu__menu-bar > .layout-row {
       display: contents;
     }

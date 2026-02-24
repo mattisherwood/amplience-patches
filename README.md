@@ -41,12 +41,25 @@ If you wish to update the extension, merely re-run the above steps but upload th
 
 2. The patches will automatically apply
 
+3. Toggle style patches from the extension icon:
+   - Left-click the extension icon to open the popup checkbox
+   - Right-click the extension icon and use the context-menu checkbox
+
+4. You can also enable/disable style patches from extension options:
+   - Go to `chrome://extensions/`
+   - Find **Amplience Patches** and click **Details**
+   - Click **Extension options**
+   - Toggle **Enable style patches**
+
 ## How It Works
 
 The extension uses Chrome's Manifest V3 content scripts to:
 
 1. **Inject CSS** (`styles.css`) - Custom styles scoped to `[data-amplience-patches="enabled"]` for specificity
-2. **Run JavaScript** (`content.js`) - Sets a data attribute on the document to activate styles and logs confirmation
+2. **Run JavaScript** (`content.js`) - Reads settings from `chrome.storage.sync` and sets/removes a data attribute to activate styles
+3. **Provide an action popup** (`popup.html` + `popup.js`) - Allows toggling style patches from the extension icon
+4. **Provide a right-click action context menu** (`background.js`) - Adds a checkbox toggle on the extension action
+5. **Provide an options page** (`options.html` + `options.js`) - Allows toggling style patches on/off and stores preferences
 
 All patches only apply to pages matching `https://app.amplience.net/content*`.
 
@@ -55,8 +68,13 @@ All patches only apply to pages matching `https://app.amplience.net/content*`.
 ```
 amplience-patches/
 ├── manifest.json          # Extension configuration
+├── background.js          # Service worker for action context menu toggle
 ├── content.js             # Content script that activates patches
 ├── styles.css             # Custom CSS patches
+├── popup.html             # Extension icon popup UI
+├── popup.js               # Popup behavior and setting persistence
+├── options.html           # Extension options UI
+├── options.js             # Options page behavior and setting persistence
 ├── icons/                 # Extension icons
 │   ├── amplience-patches-16x16.png
 │   ├── amplience-patches-32x32.png
@@ -128,6 +146,12 @@ For issues or questions:
 2. Open an issue on GitHub
 
 ## Changelog
+
+### v1.2
+
+- Added `stylesEnabled` setting in `chrome.storage.sync`
+- Added extension options page and popup menu with UI toggle to enable/disable style patches
+- Extension Context-menu is now on right-click of the extension-icon, as left-click triggers the popup
 
 ### v1.1
 
