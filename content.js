@@ -18,8 +18,23 @@
     document.documentElement.removeAttribute("data-amplience-patches")
   }
 
+  function removeFlowsFilter() {
+    // Remove the filter wrapper if it exists
+    const wrapper = document.querySelector("#flow-filter-wrapper")
+    if (wrapper) {
+      wrapper.remove()
+    }
+
+    // Remove all data-visibility attributes
+    const hiddenElements = document.querySelectorAll(
+      '[data-visibility="hidden"]',
+    )
+    hiddenElements.forEach((el) => el.removeAttribute("data-visibility"))
+  }
+
   function injectFlowsFilter(enabled) {
     if (!enabled) {
+      removeFlowsFilter()
       return
     }
 
