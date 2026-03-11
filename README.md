@@ -155,6 +155,10 @@ For issues or questions:
 
 ## Changelog
 
+### v1.5
+
+- Extract author and tag data from flow title based on naming convention.
+
 ### v1.4
 
 - Added content flows filter input field to search/filter workflow items in real-time

@@ -60,3 +60,47 @@
 #flow-filter-clear.visible {
   display: flex;
 }
+
+.flow-card {
+  position: relative;
+
+  > div {
+    display: flex;
+    height: 100%;
+
+    > div {
+      height: auto !important;
+
+      > div > .mantine-Group-root {
+        order: 1;
+      }
+    }
+  }
+
+  &:has(.author-badge) p:first-child {
+    padding-right: 2rem;
+  }
+}
+
+.author-badge {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: #ecf1fc;
+  border: solid 2px var(--mantine-primary-color-filled);
+  border-radius: 99rem;
+  padding: 0.4rem 0.6rem;
+  pointer-events: none;
+}
+
+.tags {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.tag {
+  padding: 2px 8px;
+  background: var(--mantine-color-gray-8);
+  color: var(--mantine-color-white);
+  border-radius: var(--button-radius, var(--mantine-radius-default));
+}
