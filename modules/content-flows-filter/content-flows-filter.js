@@ -33,66 +33,6 @@
       return
     }
 
-    if (!document.getElementById("flow-filter-css")) {
-      const style = document.createElement("style")
-      style.id = "flow-filter-css"
-      style.textContent = `
-        [data-visibility="hidden"] { display: none !important; }
-        #flow-filter-wrapper {
-          position: relative;
-          width: 100%;
-          max-width: 500px;
-        }
-        #flow-filter {
-          width: 100%;
-          padding: .5rem 2.5rem .5rem .75rem;
-          border: .0625rem solid #B4C5FC;
-          border-radius: .5rem;
-          font-size: .875rem;
-          font-weight: 400;
-          color: #002c42;
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-          box-sizing: border-box;
-          line-height: 1.5rem;
-          min-height: 2.5rem;
-        }
-        #flow-filter::placeholder {
-          color: var(--mantine-color-placeholder);
-        }
-        #flow-filter:focus {
-          outline: none;
-          border-color: #0374DD;
-        }
-        #flow-filter-clear {
-          position: absolute;
-          right: 0.5rem;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 1.5rem;
-          height: 1.5rem;
-          border: none;
-          background: transparent;
-          cursor: pointer;
-          display: none;
-          align-items: center;
-          justify-content: center;
-          color: #6c757d;
-          font-size: 1.25rem;
-          line-height: 1;
-          padding: 0;
-          border-radius: 0.25rem;
-        }
-        #flow-filter-clear:hover {
-          background-color: rgba(0, 0, 0, 0.05);
-          color: #002c42;
-        }
-        #flow-filter-clear.visible {
-          display: flex;
-        }
-      `
-      document.head.appendChild(style)
-    }
-
     const wrapper = document.createElement("div")
     wrapper.id = "flow-filter-wrapper"
 

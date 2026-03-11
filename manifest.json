@@ -25,6 +25,7 @@
     },
     {
       "matches": ["https://app.amplience.net/content-studio/*"],
+      "css": ["modules/content-flows-filter/content-flows-filter.css"],
       "js": ["modules/content-flows-filter/content-flows-filter.js"],
       "run_at": "document_idle"
     }
