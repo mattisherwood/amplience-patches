@@ -3,17 +3,19 @@
 }
 
 #flow-filter-wrapper {
-  position: relative;
   width: 100%;
-  max-width: 500px;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+.flow-filter-search-wrapper {
+  position: relative;
+  flex: 1 1 auto;
 }
 
 #flow-filter {
   width: 100%;
-  flex: 1 1 auto;
   padding: 0.5rem 2.5rem 0.5rem 0.75rem;
   border: 0.0625rem solid #b4c5fc;
   border-radius: 0.5rem;
@@ -36,7 +38,7 @@
   border-color: #0374dd;
 }
 
-#flow-filter-clear {
+.flow-filter-clear {
   position: absolute;
   right: 0.5rem;
   top: 50%;
@@ -56,16 +58,16 @@
   border-radius: 0.25rem;
 }
 
-#flow-filter-clear:hover {
+.flow-filter-clear:hover {
   background-color: rgba(0, 0, 0, 0.05);
   color: #002c42;
 }
 
-#flow-filter-clear.visible {
+.flow-filter-clear.visible {
   display: flex;
 }
 
-#flow-filter-mine-toggle {
+.flow-filter-mine-toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -74,20 +76,20 @@
   flex: 0 0 auto;
 }
 
-#flow-filter-mine-label {
+.flow-filter-mine-label {
   color: #002c42;
   font-size: 0.875rem;
   font-weight: 500;
   white-space: nowrap;
 }
 
-#flow-filter-mine-input {
+.flow-filter-mine-input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-#flow-filter-mine-slider {
+.flow-filter-mine-slider {
   position: relative;
   display: inline-block;
   width: 2.5rem;
@@ -97,7 +99,7 @@
   transition: background-color 0.2s ease;
 }
 
-#flow-filter-mine-slider::after {
+.flow-filter-mine-slider::after {
   content: "";
   position: absolute;
   top: 0.125rem;
@@ -110,17 +112,43 @@
   transition: transform 0.2s ease;
 }
 
-#flow-filter-mine-input:checked + #flow-filter-mine-slider {
+.flow-filter-mine-input:checked + .flow-filter-mine-slider {
   background: #0374dd;
 }
 
-#flow-filter-mine-input:checked + #flow-filter-mine-slider::after {
+.flow-filter-mine-input:checked + .flow-filter-mine-slider::after {
   transform: translateX(1rem);
 }
 
-#flow-filter-mine-input:focus-visible + #flow-filter-mine-slider {
+.flow-filter-mine-input:focus-visible + .flow-filter-mine-slider {
   outline: 2px solid rgba(3, 116, 221, 0.35);
   outline-offset: 2px;
+}
+
+.flow-filter-tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.flow-filter-tag-chip {
+  border: 1px solid var(--tag-color);
+  color: var(--tag-color);
+  background: #fff;
+  border-radius: var(--button-radius, var(--mantine-radius-default));
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.flow-filter-tag-chip.is-selected {
+  background: var(--tag-color);
+  border-color: var(--tag-color);
+  color: #fff;
 }
 
 .flow-card {

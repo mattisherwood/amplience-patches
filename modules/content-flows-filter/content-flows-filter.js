@@ -119,40 +119,50 @@
     searchInput.value = ""
 
     const clearButton = document.createElement("button")
-    clearButton.id = "flow-filter-clear"
+    clearButton.className = "flow-filter-clear"
     clearButton.innerHTML = "×"
     clearButton.setAttribute("type", "button")
     clearButton.setAttribute("aria-label", "Clear filter")
 
     const mineFilterWrapper = document.createElement("label")
-    mineFilterWrapper.id = "flow-filter-mine-toggle"
+    mineFilterWrapper.className = "flow-filter-mine-toggle"
 
     const mineFilterLabel = document.createElement("span")
-    mineFilterLabel.id = "flow-filter-mine-label"
+    mineFilterLabel.className = "flow-filter-mine-label"
     mineFilterLabel.textContent = "My flows"
 
     const mineFilterInput = document.createElement("input")
     mineFilterInput.type = "checkbox"
-    mineFilterInput.id = "flow-filter-mine-input"
+    mineFilterInput.className = "flow-filter-mine-input"
     mineFilterInput.checked = false
     mineFilterInput.setAttribute("aria-label", "Only show my flows")
 
     const mineFilterSlider = document.createElement("span")
-    mineFilterSlider.id = "flow-filter-mine-slider"
+    mineFilterSlider.className = "flow-filter-mine-slider"
 
     mineFilterWrapper.appendChild(mineFilterLabel)
     mineFilterWrapper.appendChild(mineFilterInput)
     mineFilterWrapper.appendChild(mineFilterSlider)
 
-    wrapper.appendChild(searchInput)
-    wrapper.appendChild(clearButton)
+    const searchWrapper = document.createElement("div")
+    searchWrapper.className = "flow-filter-search-wrapper"
+    searchWrapper.appendChild(searchInput)
+    searchWrapper.appendChild(clearButton)
+
+    const tagFilters = document.createElement("div")
+    tagFilters.className = "flow-filter-tag-filters"
+
+    wrapper.appendChild(searchWrapper)
     wrapper.appendChild(mineFilterWrapper)
+    wrapper.appendChild(tagFilters)
     flowsPanel.insertAdjacentElement("afterbegin", wrapper)
 
     const contentContainer = wrapper.nextElementSibling
     if (!contentContainer) {
       return
     }
+
+    const selectedTags = new Set()
 
     function parseFlowData(flowElement) {
       const p = flowElement.querySelector("p")
@@ -175,10 +185,12 @@
 
     function decorateFlow(flow) {
       const { author, title, tags } = parseFlowData(flow)
-      const isMine = author === initials
+      console.log("Parsed flow data:", { author, title, tags })
+      const isMine = author && author === initials
+      console.log(`Flow "${title}" is ${isMine ? "mine" : "not mine"}`)
 
       flow.dataset.flowAuthor = author
-      flow.dataset.flowTags = tags.join(" ")
+      flow.dataset.flowTags = tags.join("|")
       flow.dataset.flowTitle = title
       flow.dataset.isMine = isMine
 
@@ -247,10 +259,53 @@
 
     parseAndDecorateFlows()
 
+    function getFlowTags(flowElement) {
+      const flowTags = flowElement.dataset.flowTags || ""
+      return flowTags ? flowTags.split("|").filter(Boolean) : []
+    }
+
+    function renderTagFilters(tags) {
+      const tagsToRender = Array.from(new Set([...tags, ...selectedTags])).sort(
+        (a, b) => a.localeCompare(b),
+      )
+
+      tagFilters.innerHTML = ""
+      tagFilters.hidden = tagsToRender.length === 0
+
+      for (const tag of tagsToRender) {
+        const tagButton = document.createElement("button")
+        tagButton.type = "button"
+        tagButton.className = "flow-filter-tag-chip"
+        tagButton.textContent = `#${tag}`
+        tagButton.dataset.tag = tag
+        tagButton.style.setProperty(
+          "--tag-color",
+          createHexColorFromString(tag, { shade: "dark" }),
+        )
+
+        if (selectedTags.has(tag)) {
+          tagButton.classList.add("is-selected")
+        }
+
+        tagButton.addEventListener("click", () => {
+          if (selectedTags.has(tag)) {
+            selectedTags.delete(tag)
+          } else {
+            selectedTags.add(tag)
+          }
+
+          applyFilters()
+        })
+
+        tagFilters.appendChild(tagButton)
+      }
+    }
+
     function applyFilters() {
       const filterValue = searchInput.value.toLowerCase().trim()
       const onlyMine = mineFilterInput.checked
       const children = Array.from(contentContainer.children)
+      const availableTags = new Set()
 
       for (const child of children) {
         const text = child.textContent.toLowerCase()
@@ -259,6 +314,25 @@
         const matchesMine = !onlyMine || isMine
 
         if (matchesSearch && matchesMine) {
+          for (const tag of getFlowTags(child)) {
+            availableTags.add(tag)
+          }
+        }
+      }
+
+      renderTagFilters(availableTags)
+
+      for (const child of children) {
+        const text = child.textContent.toLowerCase()
+        const matchesSearch = !filterValue || text.includes(filterValue)
+        const isMine = child.dataset.isMine === "true"
+        const matchesMine = !onlyMine || isMine
+        const flowTags = getFlowTags(child)
+        const matchesTags =
+          selectedTags.size === 0 ||
+          flowTags.some((tag) => selectedTags.has(tag))
+
+        if (matchesSearch && matchesMine && matchesTags) {
           child.removeAttribute("data-visibility")
         } else {
           child.setAttribute("data-visibility", "hidden")
