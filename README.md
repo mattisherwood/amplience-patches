@@ -1,6 +1,8 @@
 # Amplience Patches
 
-A Chrome extension that applies custom CSS patches to improve the layout and responsiveness of the Amplience Dynamic Content interface.
+A Chrome extension that applies extra patches to amplify the Amplience interface including:
+- CSS patch to improve the layout and responsiveness of the Amplience Dynamic Content interface
+- Flows Filters for easier management of Workforce Flows
 
 ## Features
 
