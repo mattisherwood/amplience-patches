@@ -155,9 +155,16 @@ For issues or questions:
 
 ## Changelog
 
+### v1.5.1
+
+- Detects the current author's initials and highlight their flows.
+- Adds a switch to show only the current user's or everyone's flows.\*
+
+\* NB: We don't have full data, so this only works for initials from the title naming convention. Nice extra usability, not full RBACS security.
+
 ### v1.5
 
-- Extract author and tag data from flow title based on naming convention.
+- Extracts author and tag data from flow title based on naming convention.
 
 ### v1.4
 

@@ -6,16 +6,9 @@
   }
 
   let flowFilterEnabled = false
-
-  function hashString(str) {
-    let hash = 0
-    for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i)
-      hash = (hash << 5) - hash + char
-      hash = hash & hash // Convert to 32bit integer
-    }
-    return Math.abs(hash)
-  }
+  let resolvedUsername = ""
+  let initials = ""
+  let usernameLookupInFlight = false
 
   function removeFlowsFilter() {
     const wrapper = document.querySelector("#flow-filter-wrapper")
@@ -77,7 +70,28 @@
     createNewButton.addEventListener("click", watchForFlowTextarea)
   }
 
-  function injectFlowsFilter() {
+  async function injectFlowsFilter() {
+    if (!resolvedUsername && !usernameLookupInFlight) {
+      usernameLookupInFlight = true
+      try {
+        const username = await getUsername()
+        if (username) {
+          resolvedUsername = username
+          initials = username
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+          console.log("Resolved username:", username, "Initials:", initials)
+        } else {
+          console.log("Could not resolve username")
+        }
+      } catch (error) {
+        console.error("Error resolving username:", error)
+      } finally {
+        usernameLookupInFlight = false
+      }
+    }
+
     const flowsPanel = document.querySelector(
       '[id^="mantine-"][id$="-panel-flows"]',
     )
@@ -94,15 +108,15 @@
     const wrapper = document.createElement("div")
     wrapper.id = "flow-filter-wrapper"
 
-    const input = document.createElement("input")
-    input.className = "mantine-Input-input mantine-Select-input"
-    input.setAttribute("data-variant", "default")
-    input.setAttribute("tabindex", "0")
-    input.setAttribute("placeholder", "Filter Flows")
-    input.setAttribute("autocomplete", "off")
-    input.setAttribute("aria-invalid", "false")
-    input.id = "flow-filter"
-    input.value = ""
+    const searchInput = document.createElement("input")
+    searchInput.className = "mantine-Input-input mantine-Select-input"
+    searchInput.setAttribute("data-variant", "default")
+    searchInput.setAttribute("tabindex", "0")
+    searchInput.setAttribute("placeholder", "Filter Flows")
+    searchInput.setAttribute("autocomplete", "off")
+    searchInput.setAttribute("aria-invalid", "false")
+    searchInput.id = "flow-filter"
+    searchInput.value = ""
 
     const clearButton = document.createElement("button")
     clearButton.id = "flow-filter-clear"
@@ -110,8 +124,29 @@
     clearButton.setAttribute("type", "button")
     clearButton.setAttribute("aria-label", "Clear filter")
 
-    wrapper.appendChild(input)
+    const mineFilterWrapper = document.createElement("label")
+    mineFilterWrapper.id = "flow-filter-mine-toggle"
+
+    const mineFilterLabel = document.createElement("span")
+    mineFilterLabel.id = "flow-filter-mine-label"
+    mineFilterLabel.textContent = "My flows"
+
+    const mineFilterInput = document.createElement("input")
+    mineFilterInput.type = "checkbox"
+    mineFilterInput.id = "flow-filter-mine-input"
+    mineFilterInput.checked = false
+    mineFilterInput.setAttribute("aria-label", "Only show my flows")
+
+    const mineFilterSlider = document.createElement("span")
+    mineFilterSlider.id = "flow-filter-mine-slider"
+
+    mineFilterWrapper.appendChild(mineFilterLabel)
+    mineFilterWrapper.appendChild(mineFilterInput)
+    mineFilterWrapper.appendChild(mineFilterSlider)
+
+    wrapper.appendChild(searchInput)
     wrapper.appendChild(clearButton)
+    wrapper.appendChild(mineFilterWrapper)
     flowsPanel.insertAdjacentElement("afterbegin", wrapper)
 
     const contentContainer = wrapper.nextElementSibling
@@ -132,10 +167,6 @@
         .replace(/#\w+/g, "")
         .trim()
 
-      flowElement.dataset.flowAuthor = author
-      flowElement.dataset.flowTitle = title
-      flowElement.dataset.flowTags = tags.join(" ")
-
       return { author, title, tags }
     }
 
@@ -144,51 +175,44 @@
 
     function decorateFlow(flow) {
       const { author, title, tags } = parseFlowData(flow)
+      const isMine = author === initials
+
+      flow.dataset.flowAuthor = author
+      flow.dataset.flowTags = tags.join(" ")
+      flow.dataset.flowTitle = title
+      flow.dataset.isMine = isMine
 
       flow.classList.add("flow-card")
       flow.dataset.flowParsed = "true"
 
       const stage = flow.children[0].children[0].children[0]
 
-      // Add a little circle badge within the flow div with the author name
+      // Add a little circle badge with the author name
       if (author) {
-        // Calculate a consistent colour based on the author name so that the same author always has the same colour
-        // The colours should always be light so dark text can be easily read on them - you can achieve this by limiting the random values to the upper half of the spectrum (i.e. 128-255)
-        const authorHash = hashString(author)
-        const color = `#${[0, 1, 2]
-          .map((i) =>
-            (Math.floor((authorHash >> (i * 8)) % 200) + 200)
-              .toString(16)
-              .padStart(2, "0"),
-          )
-          .join("")}`
+        const authorColor = createHexColorFromString(author, {
+          shade: "light",
+          threshold: 200,
+        })
         const authorBadge = document.createElement("div")
         authorBadge.className = "author-badge"
         authorBadge.textContent = author
-        authorBadge.style.backgroundColor = color
+        authorBadge.style.backgroundColor = authorColor
+        authorBadge.style.borderColor = isMine
+          ? "var(--mantine-primary-color-filled)"
+          : undefined
         stage.appendChild(authorBadge)
       }
 
-      // Append the tags in the flow div in the following way:
-      // ...<div className="tags"><div class="tag">{tag1}</div><div class="tag">{tag2}</div></div></div>
+      // Append the tags
       if (tags.length) {
         const tagsContainer = document.createElement("div")
         tagsContainer.className = "tags"
         tags.forEach((tag) => {
-          // Calculate a consistent colour based on the tag name so that the same tag always has the same colour
-          // The colours should always be dark so white text can be easily read on them - you can achieve this by limiting the values to the lower half of the spectrum (i.e. 0-127)
-          const tagHash = hashString(tag)
-          const color = `#${[0, 1, 2]
-            .map((i) =>
-              Math.floor((tagHash >> (i * 8)) % 128)
-                .toString(16)
-                .padStart(2, "0"),
-            )
-            .join("")}`
+          const tagColor = createHexColorFromString(tag, { shade: "dark" })
           const tagEl = document.createElement("div")
           tagEl.className = "tag"
           tagEl.textContent = `#${tag}`
-          tagEl.style.backgroundColor = color
+          tagEl.style.backgroundColor = tagColor
           tagsContainer.appendChild(tagEl)
         })
         stage.appendChild(tagsContainer)
@@ -218,12 +242,32 @@
       }
 
       ready.forEach(decorateFlow)
+      applyFilters()
     }
 
     parseAndDecorateFlows()
 
+    function applyFilters() {
+      const filterValue = searchInput.value.toLowerCase().trim()
+      const onlyMine = mineFilterInput.checked
+      const children = Array.from(contentContainer.children)
+
+      for (const child of children) {
+        const text = child.textContent.toLowerCase()
+        const matchesSearch = !filterValue || text.includes(filterValue)
+        const isMine = child.dataset.isMine === "true"
+        const matchesMine = !onlyMine || isMine
+
+        if (matchesSearch && matchesMine) {
+          child.removeAttribute("data-visibility")
+        } else {
+          child.setAttribute("data-visibility", "hidden")
+        }
+      }
+    }
+
     function updateClearButton() {
-      if (input.value.trim()) {
+      if (searchInput.value.trim()) {
         clearButton.classList.add("visible")
         return
       }
@@ -232,29 +276,25 @@
     }
 
     clearButton.addEventListener("click", () => {
-      input.value = ""
+      searchInput.value = ""
       updateClearButton()
-      input.dispatchEvent(new Event("input"))
+      applyFilters()
     })
 
     let debounceTimer
-    input.addEventListener("input", () => {
+    searchInput.addEventListener("input", () => {
       updateClearButton()
       clearTimeout(debounceTimer)
       debounceTimer = window.setTimeout(() => {
-        const filterValue = input.value.toLowerCase().trim()
-        const children = Array.from(contentContainer.children)
-
-        for (const child of children) {
-          const text = child.innerHTML.toLowerCase()
-          if (!filterValue || text.includes(filterValue)) {
-            child.removeAttribute("data-visibility")
-          } else {
-            child.setAttribute("data-visibility", "hidden")
-          }
-        }
+        applyFilters()
       }, 100)
     })
+
+    mineFilterInput.addEventListener("change", () => {
+      applyFilters()
+    })
+
+    updateClearButton()
   }
 
   function applyFlowFilterSetting(enabled) {
