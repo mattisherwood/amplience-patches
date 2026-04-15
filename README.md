@@ -1,21 +1,24 @@
-# Amplience Helper
+# ![Icon](/icons/amplience-32x32.png) Amplience Helper
 
-A suite of tools bundled in a browser extension to help everyday Amplience users create content at the speed of ideas.
+A suite of tools bundled in a browser extension to help every-day Amplience super-users create content at the speed of ideas.
 
-## Modules
+## Features / Modules
 
-- [**Flows Filter** (Read more)](modules/flows-filter/README.md)\
-  Adds filters to better manage your Workforce Content Flows. (Search & filter by search-term, tag or author)
+|                                                                                              |                                                                                                                                                                                |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ![Hotkeys](screenshots/feature-1-hotkeys.png)                                                | [**Hotkeys** (Read more)](modules/hotkeys/README.md)<br />Keyboard shortcut layer for faster navigation and actions. (Press `?` to see a list)                                 |
+| ![Installing Custom Browser Extensions](screenshots/feature-2-flows-filter.png)              | [**Flows Filter** (Read more)](modules/flows-filter/README.md)<br/>Adds filters to better manage your Workforce Content Flows. (Search & filter by search-term, tag or author) |
+| ![Installing Custom Browser Extensions](screenshots/feature-3-favicon-and-title-updater.png) | [**Style Patches** (Read more)](modules/style-patches/README.md)<br />Responsive and readability CSS improvements for the Amplience DC interface.                              |
 
-- [**Hotkeys** (Read more)](modules/hotkeys/README.md)\
-  Keyboard shortcut layer for faster navigation and actions. (Press `?` to see a list)
-
-- [**Style Patches** (Read more)](modules/style-patches/README.md)\
-  Responsive and readability CSS improvements for the Amplience DC interface.
-
-Each of these can be toggled on/off from the toolbar or in the options.
+Each of these can be toggled on/off from the toolbar or in the options page.
 
 ## Installation
+
+### Chrome Web Store (recommended)
+
+Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/amplience-helper) — Chrome handles all future updates automatically.
+
+### Manual install (for developers)
 
 1. Download or clone this repository
 
@@ -25,18 +28,19 @@ Each of these can be toggled on/off from the toolbar or in the options.
 
 4. Click **Load unpacked**
 
-5. Select the `amplience-patches` folder you downloaded in step 1
+5. Select the `amplience-helper` folder you downloaded in step 1
 
 The extension will now be active on `https://app.amplience.net/content/*` and `https://app.amplience.net/content-studio/*`
 
 ![Installing Custom Browser Extensions](screenshots/installing-custom-browser-extensions.gif)\
 _Here are steps 2-5 in action. (Also installing our two other browser extensions - [Amplience Hotkeys](https://github.com/mattisherwood/amplience-hotkeys) and [Favicon Swapper](https://github.com/mattisherwood/favicon-swapper))_
 
-_**TIP:** While you're in the extension manager; if you click **Details** on the extension you can select **'Allow in Icognito'** if you wish it to also be applied to incognito windows._
+_**TIP:** While you're in the extension manager; if you click **Details** on the extension you can select **'Allow in Incognito'** if you wish it to also be applied to incognito windows._
 
 ### Updating to newer versions
 
-If you wish to update the extension, merely re-run the above steps but upload the newer version of the folder. It will automatically replace the old one. Then refresh the tab and it'll be applied.
+- **Chrome Web Store install:** Chrome updates the extension automatically — no action needed.
+- **Manual (Load unpacked) install:** Download the latest release and re-run the steps above. It will replace the old version. Refresh any open Amplience tabs after reloading.
 
 ## How It Is Organized
 
@@ -89,7 +93,6 @@ amplience-helper/
 
 Future additions include
 
-- Automatic updates for the extension.
 - Bundling in the favicon+title updater currently in [Favicon Swapper](https://github.com/mattisherwood/favicon-swapper)
 
 ## License

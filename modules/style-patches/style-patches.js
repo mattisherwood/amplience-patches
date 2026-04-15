@@ -7,11 +7,14 @@
 
   function applyStylesSetting(enabled) {
     if (enabled) {
-      document.documentElement.setAttribute("data-amplience-patches", "enabled")
+      document.documentElement.setAttribute(
+        "data-amplience-style-patches",
+        "enabled",
+      )
       return
     }
 
-    document.documentElement.removeAttribute("data-amplience-patches")
+    document.documentElement.removeAttribute("data-amplience-style-patches")
   }
 
   chrome.storage.sync.get(DEFAULT_SETTINGS, (settings) => {

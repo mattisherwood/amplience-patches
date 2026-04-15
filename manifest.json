@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Amplience Helper",
-  "version": "2.0.0",
-  "description": "A suite of tools bundled in a browser extension to help everyday Amplience users create content at the speed of ideas.",
+  "version": "2.1.1",
+  "description": "A suite of tools bundled in a browser extension to help every-day Amplience super-users create content at the speed of ideas.",
   "permissions": ["storage"],
   "options_page": "options.html",
   "action": {
@@ -38,6 +38,7 @@
   "icons": {
     "16": "icons/amplience-16x16.png",
     "32": "icons/amplience-32x32.png",
-    "96": "icons/amplience-96x96.png"
+    "96": "icons/amplience-96x96.png",
+    "128": "icons/amplience-128x128.png"
   }
 }
