@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.1.0 - 2026-04-01
+
+### Summary
+
+First public release on the Chrome Web Store. No new module features; this version marks the move to store-managed distribution, adds the required 128×128 icon asset for the store listing, and refreshes installation documentation to reflect both Store and manual install paths.
+
+### Module Highlights
+
+No module changes in this release.
+
+### Migration Notes
+
+- Users previously on a manual Load unpacked install can switch to the Chrome Web Store listing for automatic updates. Manual installation remains fully supported for contributors and developer use.
+
+---
+
 ## v2.0 - 2026-03-25
 
 ### Summary

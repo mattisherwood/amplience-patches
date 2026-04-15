@@ -1,12 +1,12 @@
 # Hotkeys Changelog
 
-> Prior to integration into `amplience-patches`, Hotkeys was maintained as a standalone extension (`amplience-hotkeys`). Version numbers below reflect that lineage.
+> Prior to integration into `amplience-helper`, Hotkeys was maintained as a standalone extension (`amplience-hotkeys`). Version numbers below reflect that lineage.
 
 ## 2026-03-25 (extension v2.0)
 
 ### Changed
 
-- No functional changes. Integrated from standalone `amplience-hotkeys` into `amplience-patches`; now toggle-controlled via `chrome.storage.sync` alongside other modules.
+- No functional changes. Integrated from standalone `amplience-hotkeys` into `amplience-helper`; now toggle-controlled via `chrome.storage.sync` alongside other modules.
 
 ---
 
