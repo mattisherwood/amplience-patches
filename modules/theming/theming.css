@@ -1,0 +1,148 @@
+[data-amplience-theming="enabled"] {
+  --background-color: 255, 255, 255;
+  --foreground-color: 0, 0, 0;
+  --subtle-shade: rgba(var(--foreground-color), 0.03);
+  --line-color: rgba(var(--foreground-color), 0.1);
+
+  &.dark {
+    --background-color: 0, 0, 0;
+    --foreground-color: 255, 255, 255;
+    --subtle-shade: rgba(var(--foreground-color), 0.2);
+    --line-color: rgba(var(--foreground-color), 0.3);
+    .am-empty-state__image {
+      filter: grayscale() invert();
+    }
+    a,
+    .am-dashboard__tab.md-tab.md-active,
+    md-tabs .md-tab.md-active,
+    .md-button--link,
+    .am-content-item-library-breadcrumbs
+      .am-base-breadcrumbs__crumb:last-child
+      .am-base-breadcrumbs__link,
+    .selected.am-content-folders__tree-item__inner .folder-icon,
+    .selected.am-content-folders__tree-item__inner .folder-label {
+      color: #0084ff;
+    }
+  }
+
+  ui-view {
+    background-color: rgb(var(--background-color));
+    color: rgb(var(--foreground-color));
+  }
+
+  .am-dashboard__tab-content {
+    background-color: rgba(var(--theme-color), 0.1);
+    color: inherit;
+  }
+
+  am-dashboard-widget {
+    background-color: rgba(var(--background-color), 0.7);
+    border: solid 1px;
+    border-color: rgb(var(--background-color))
+      rgba(var(--foreground-color), 0.4) rgba(var(--foreground-color), 0.4)
+      rgb(var(--background-color));
+  }
+
+  .am-dashboard-header h1,
+  .am-dashboard__tab.md-tab,
+  .am-dashboard-widget__title,
+  md-tabs .md-tab {
+    color: inherit;
+  }
+
+  .am-dashboard-widget__header {
+    border-bottom-color: var(--line-color);
+  }
+
+  .am-dashboard__banner::after {
+    content: "";
+    width: 270px;
+    height: 100%;
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: linear-gradient(
+      to right,
+      rgb(var(--background-color)),
+      transparent
+    );
+  }
+
+  /* So extensions in iframes will still always sit on top of white background */
+  am-extension-host {
+    background: #fff;
+  }
+
+  am-content-dashboard,
+  md-content,
+  am-content-item-library am-repositories,
+  am-content-folders,
+  am-repositories am-repositories-title h3,
+  md-icon,
+  .am-repository__repo-toggle-icon,
+  .expanded.am-content-folders__tree-item__inner .folder-icon,
+  .am-content-folders__actions,
+  .am-content-folders__tree-item__inner:hover,
+  .am-content-folders__tree-item__inner:hover .am-content-folders__actions,
+  .am-content-folders__tree-item__inner:hover.leaf-folder .folder-icon {
+    color: inherit;
+    background-color: transparent;
+  }
+
+  /* Content */
+
+  am-content-item-library {
+    background-color: rgb(var(--background-color));
+    color: inherit;
+  }
+
+  .am-content-item-library-toolbar .am-toolbar {
+    background-color: transparent !important;
+    border-bottom-color: var(--line-color);
+  }
+
+  am-repositories-selector .md-button .am-repositories-selector-label,
+  am-repositories-selector .md-button md-icon,
+  .am-base-breadcrumbs__crumb,
+  .am-content-item-library-breadcrumbs
+    .am-base-breadcrumbs__crumb
+    .am-base-breadcrumbs__link {
+    color: rgba(var(--foreground-color), 0.7);
+  }
+
+  .am-content-item-library-breadcrumbs
+    .am-base-breadcrumbs__crumb:first-child:before,
+  .am-content-item-library-breadcrumbs__measure--last:after,
+  .am-content-item-library-breadcrumbs__measure:before,
+  .am-content-item-library-breadcrumbs .am-base-breadcrumbs__crumb:after {
+    color: var(--line-color);
+  }
+
+  .am-repository {
+    background-color: var(--subtle-shade);
+    color: inherit;
+  }
+
+  .am-repository:hover {
+    background-color: var(--line-color);
+  }
+
+  am-content-folders md-icon.folder-icon svg {
+    fill: currentColor !important;
+  }
+
+  .am-content-folders__tree-item {
+    color: rgba(var(--foreground-color), 0.7);
+  }
+
+  .am-content-folders__tree-item__inner:hover {
+    color: rgb(var(--foreground-color));
+  }
+
+  .am-content-folders__actions {
+    opacity: 0;
+  }
+
+  .am-content-folders__tree-item__inner:hover .am-content-folders__actions {
+    opacity: 1;
+  }
+}
