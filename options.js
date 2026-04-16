@@ -7,7 +7,7 @@
     stylesEnabled: true,
     themingEnabled: true,
     themingDark: false,
-    themingColor: "170, 190, 255",
+    themingColor: "60, 120, 200",
   }
 
   const contentFlowsCheckbox = document.getElementById("flowFilter")
@@ -104,9 +104,7 @@
   })
   themingDarkCheckbox.addEventListener("change", saveSettings)
   themingColorInput.addEventListener("change", saveSettings)
-  themingColorInput.addEventListener("input", () =>
-    updateColorSwatch(themingColorInput.value),
-  )
+  ColorPicker.init(themingColorInput, themingColorSwatch)
 
   chrome.storage.onChanged.addListener(handleStorageChange)
   document.addEventListener("DOMContentLoaded", loadSettings)
