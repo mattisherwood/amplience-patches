@@ -279,4 +279,50 @@
   .am-content-view-list__header--label {
     min-width: 200px;
   }
+
+  .md-panel.am-inline-filters-overlay__wrapper._md-panel-animate-enter {
+    width: auto;
+    max-width: none;
+    right: 0;
+    margin-right: 20px;
+    padding-inline: 20px;
+  }
+
+  am-inline-filters-facet-group {
+    width: auto;
+    margin-left: 0;
+  }
+
+  .am-inline-filters-overlay {
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .am-inline-filters-facet-option,
+  am-inline-filters-facet-option {
+    margin-right: 0;
+  }
+
+  .am-inline-filters-overlay__group-wrapper:not(:first-child)
+    am-inline-filters-facet-group {
+    width: auto;
+    margin-left: 0;
+  }
+
+  .am-inline-filters-overlay__group-wrapper {
+    min-width: 110px;
+  }
+
+  am-visualization-options-menu .md-menu .md-button,
+  am-visualization-options-menu .md-menu md-checkbox,
+  am-visualization-options-menu md-menu .md-button,
+  am-visualization-options-menu md-menu md-checkbox {
+    margin-inline: -6px;
+    padding-inline: 6px;
+  }
+
+  md-checkbox .md-container {
+    left: auto;
+  }
 }
