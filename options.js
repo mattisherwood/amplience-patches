@@ -14,11 +14,25 @@
   const hotkeysCheckbox = document.getElementById("hotkeysEnabled")
   const stylesCheckbox = document.getElementById("stylesEnabled")
   const themingCheckbox = document.getElementById("themingEnabled")
-  const themingDarkCheckbox = document.getElementById("themingDark")
+  const themingDarkToggle = document.getElementById("themingDark")
   const themingColorInput = document.getElementById("themingColor")
   const themingColorSwatch = document.getElementById("themingColorSwatch")
   const themeControls = document.getElementById("themeControls")
   const statusEl = document.getElementById("status")
+  let themingDarkValue = DEFAULT_SETTINGS.themingDark
+
+  function renderDarkToggle(enabled) {
+    themingDarkValue = Boolean(enabled)
+    themingDarkToggle.textContent = themingDarkValue ? "☽" : "☀"
+    themingDarkToggle.setAttribute("aria-pressed", String(themingDarkValue))
+    themingDarkToggle.setAttribute(
+      "aria-label",
+      themingDarkValue ? "Disable dark mode" : "Enable dark mode",
+    )
+    themingDarkToggle.title = themingDarkValue
+      ? "Disable dark mode"
+      : "Enable dark mode"
+  }
 
   function updateColorSwatch(color) {
     themingColorSwatch.style.backgroundColor = `rgb(${color})`
@@ -40,7 +54,7 @@
       hotkeysCheckbox.checked = settings.hotkeysEnabled
       stylesCheckbox.checked = settings.stylesEnabled
       themingCheckbox.checked = settings.themingEnabled
-      themingDarkCheckbox.checked = settings.themingDark
+      renderDarkToggle(settings.themingDark)
       themingColorInput.value = settings.themingColor
       updateColorSwatch(settings.themingColor)
       themeControls.hidden = !settings.themingEnabled
@@ -54,7 +68,7 @@
         hotkeysEnabled: hotkeysCheckbox.checked,
         stylesEnabled: stylesCheckbox.checked,
         themingEnabled: themingCheckbox.checked,
-        themingDark: themingDarkCheckbox.checked,
+        themingDark: themingDarkValue,
         themingColor: themingColorInput.value,
       },
       () => {
@@ -86,7 +100,7 @@
     }
 
     if (changes.themingDark) {
-      themingDarkCheckbox.checked = Boolean(changes.themingDark.newValue)
+      renderDarkToggle(Boolean(changes.themingDark.newValue))
     }
 
     if (changes.themingColor) {
@@ -102,7 +116,10 @@
     themeControls.hidden = !themingCheckbox.checked
     saveSettings()
   })
-  themingDarkCheckbox.addEventListener("change", saveSettings)
+  themingDarkToggle.addEventListener("click", () => {
+    renderDarkToggle(!themingDarkValue)
+    saveSettings()
+  })
   themingColorInput.addEventListener("change", saveSettings)
   ColorPicker.init(themingColorInput, themingColorSwatch)
 

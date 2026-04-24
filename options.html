@@ -67,7 +67,7 @@
         }
 
         #themeControls {
-            border: solid 1px var(--hover);
+            border: solid 1px var(--muted);
             padding: 20px;
             border-radius: 4px;
         }
@@ -85,6 +85,28 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .theme-icon-toggle {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            border: 1px solid var(--muted);
+            background: transparent;
+            color: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .theme-icon-toggle:hover,
+        .theme-icon-toggle:focus-visible {
+            background: color-mix(in srgb, var(--text) 8%, transparent);
+            outline: none;
         }
     </style>
 </head>
@@ -128,7 +150,7 @@
     <div class="fieldset">
         <label class="option" for="themingEnabled">
             <input type="checkbox" id="themingEnabled" />
-            Enable Theming
+            Enable DC Theming
         </label>
 
         <p class="description">
@@ -145,9 +167,7 @@
 
             <!-- Color picker goes here -->
 
-            <label class="option" for="themingDark">
-                <input type="checkbox" id="themingDark" /> Dark
-            </label>
+            <button type="button" id="themingDark" class="theme-icon-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">☀</button>
         </div>
     </div>
 
