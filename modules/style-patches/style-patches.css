@@ -1,9 +1,59 @@
 [data-amplience-style-patches="enabled"] {
+  /* ============= TOP LEVEL HOMEPAGE ============== */
+  /* NB: these must have double or triple classes to */
+  /* match the specificity of the existing styles.   */
+
+  .landing-page.landing-page.landing-page {
+    position: sticky;
+    top: 0;
+    height: auto;
+    min-height: 0;
+    padding-bottom: 26px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(3px);
+    z-index: 9;
+    flex-shrink: 0;
+  }
+
+  .landing-page__wrap.landing-page__wrap.landing-page__wrap {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .apps.apps {
+    min-width: initial;
+  }
+
+  .apps__body.apps__body {
+    height: auto;
+    padding-block: 80px;
+  }
+
+  .primary-app__wrap.primary-app__wrap {
+    padding-top: 0;
+  }
+
+  .apps__studios_body.apps__studios_body {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .apps__footer.apps__footer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    width: min(100%, 1000px);
+    justify-items: center;
+  }
+
+  .apps__footer-wrap.apps__footer-wrap {
+    padding-bottom: 40px;
+  }
+
   /* ============= ACCOUNT MANAGEMENT APP ============= */
   /* NB: Some elements must have at least three classes */
   /* to match the specificity of the existing styles.   */
   .App {
     min-width: initial;
+    overflow-y: auto;
 
     .masthead {
       &.masthead {
