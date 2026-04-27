@@ -57,6 +57,10 @@
 
   function applyColorSetting(color) {
     document.documentElement.style.setProperty("--theme-color-rgb", color)
+    document.documentElement.style.setProperty(
+      "--hub-row-color",
+      `rgb(${color})`,
+    )
   }
 
   /**
@@ -133,9 +137,9 @@
 
     // If themingHubs changed, reapply the current hub's theme
     if (changes.themingHubs) {
+      const newHubs = changes.themingHubs.newValue || {}
       const hubName = getHubNameFromUrl()
       if (hubName && !isExcludedHub(hubName)) {
-        const newHubs = changes.themingHubs.newValue || {}
         const hubTheme = newHubs[hubName]
         if (hubTheme) {
           applyColorSetting(hubTheme.color)

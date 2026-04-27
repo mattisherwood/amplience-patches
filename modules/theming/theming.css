@@ -26,6 +26,38 @@
     }
   }
 
+  /* Hub Switcher */
+
+  .am-hub-selector__list > md-menu > .md-button,
+  .am-hub-selector__menu-option am-truncate {
+    padding-left: 0;
+  }
+
+  .am-hub-selector__list > md-menu > .md-button ng-transclude::before,
+  .am-hub-selector__menu-option md-icon {
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    margin-inline: 1rem 1rem;
+    padding: 0;
+    border: solid 2px var(--hub-row-color, rgb(3, 116, 221));
+    border-radius: 50%;
+    box-sizing: content-box;
+    color: #fff;
+    opacity: 1;
+    vertical-align: middle;
+  }
+
+  .am-hub-selector__list > md-menu > .md-button ng-transclude::before,
+  .am-hub-selector__menu-option--is-selected md-icon {
+    background: var(--theme-color);
+  }
+
+  .am-hub-selector__menu-option:hover md-icon {
+    color: #fff;
+  }
+
   /* Resets */
 
   am-content-dashboard,
@@ -192,7 +224,9 @@
     am-repository-locale-info
     md-icon,
   .am-repositories-selector__menu-option--create-repo
-    .am-repositories-selector__add-repo-icon {
+    .am-repositories-selector__add-repo-icon,
+  .am-hub-selector__menu-option--is-selected:hover am-truncate,
+  .am-hub-selector__menu-option--is-selected am-truncate {
     color: var(--theme-color);
   }
 
@@ -218,6 +252,8 @@
 
   md-radio-button.md-default-theme .md-on,
   md-radio-button .md-on,
+  md-checkbox.md-checked .md-icon,
+  md-checkbox.md-indeterminate .md-icon,
   md-checkbox.md-checked .md-icon {
     background-color: var(--theme-color);
   }
@@ -226,11 +262,8 @@
 
   md-radio-button.md-default-theme.md-checked .md-off,
   md-radio-button.md-checked .md-off,
-  md-checkbox.md-checked .md-icon,
-  md-checkbox.md-indeterminate .md-icon,
   am-content-folders-inline-subfolders-card:hover > div {
     border-color: var(--theme-color);
-    background-color: var(--theme-color);
   }
 
   /* Fill overrides */

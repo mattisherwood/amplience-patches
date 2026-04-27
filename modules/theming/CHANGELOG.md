@@ -1,5 +1,16 @@
 # Theming Changelog
 
+## 2026-04-27 (extension v2.2.4)
+
+### Fixed
+
+- Prevented the temporary `login-prompt` route from creating a stored hub theme.
+
+### Added
+
+- Added dots to the Hub-switcher menu, each showing its own saved theme colour.
+- (Extracted the hub-switcher row colour logic into a dedicated theming script to keep the main theming runtime simpler.)
+
 ## 2026-04-24 (extension v2.2.3)
 
 ### Added
