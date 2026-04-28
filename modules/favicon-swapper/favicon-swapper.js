@@ -112,7 +112,9 @@
   }
 
   function startFaviconSwapper() {
+    if (enabled) return
     enabled = true
+    currentUrl = window.location.href
     originalPageTitle = document.title
     applyRules()
 
@@ -154,12 +156,14 @@
 
   history.pushState = function (...args) {
     originalPushState.apply(this, args)
+    if (!enabled) return
     currentUrl = window.location.href
     scheduleApplyRules()
   }
 
   history.replaceState = function (...args) {
     originalReplaceState.apply(this, args)
+    if (!enabled) return
     currentUrl = window.location.href
     scheduleApplyRules()
   }

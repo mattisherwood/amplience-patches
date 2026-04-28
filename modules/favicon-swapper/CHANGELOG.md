@@ -1,5 +1,16 @@
 # Favicon Swapper Changelog
 
+## 2026-04-28 (extension v2.3.3)
+
+### Fixed
+
+- `startFaviconSwapper()` now guards against being called when already enabled, preventing duplicate `MutationObserver` and `popstate` listener registrations.
+- `currentUrl` is now synced to the current URL on start, preventing a spurious `applyRules()` call on the first navigation.
+- `pushState`/`replaceState` patches now early-return when the module is disabled, avoiding unnecessary work on every SPA navigation.
+- Chrome API calls in intervals and observers are now guarded against an invalidated extension context (e.g. after reloading the extension during development).
+
+---
+
 ## 2026-04-24 (extension v2.3.1)
 
 ### Added
